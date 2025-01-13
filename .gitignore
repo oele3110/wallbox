@@ -1,0 +1,6 @@
+.idea
+.idea/*
+wallboxConfig.json
+/OldMain.py
+/OldModbusReader.py
+/OldTouch.py
