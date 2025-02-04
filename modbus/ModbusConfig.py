@@ -62,7 +62,7 @@ modbus_wallbox_config = {
 }
 
 modbus_wallbox_status_codes = {
-    1: "Unbekannt",
+    1: "Nicht verbunden",
     2: "Verbunden",
     3: "Pausiert",
     4: "Initialisieren",
