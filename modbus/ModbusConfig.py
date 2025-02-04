@@ -62,12 +62,12 @@ modbus_wallbox_config = {
 }
 
 modbus_wallbox_status_codes = {
-    1: "Nicht verbunden",
+    1: "Nicht verb.",
     2: "Verbunden",
     3: "Pausiert",
-    4: "Initialisieren",
+    4: "Init",
     5: "Laden",
-    6: "Kommunikationsfehler",
+    6: "Fehler",
     7: "Service Mode",
 }
 
