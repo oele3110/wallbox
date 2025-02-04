@@ -3,7 +3,7 @@ import threading
 
 from pyModbusTCP.client import ModbusClient
 
-from modbus.ModbusConfig import modbus_wallbox_config
+from modbus.ModbusConfig import modbus_wallbox_config, modbus_wallbox_status_codes
 from modbus.ModbusReader import read_modbus
 from output.Led import led_pin_1, led_pin_2, led_pin_3, Led
 from output.drivers.i2c_dev import Lcd
@@ -53,6 +53,8 @@ class Output:
                             if modbus_config["division_round"] == 0:
                                 modbus_result = int(modbus_result)
                     unit = modbus_config["unit"] if modbus_config["unit"] is not None else ""
+                    if modbus_key == "wallbox_status_code":
+                        modbus_result = modbus_wallbox_status_codes[modbus_result]
                     display_string = modbus_config["display_string"] + ": " + str(modbus_result) + " " + unit
                     self.lcd.lcd_display_string(display_string, modbus_config["display_line"])
                 elif modbus_config["display_line"] == 0:
