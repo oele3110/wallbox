@@ -21,7 +21,6 @@ def check_current_input():
 
 class TouchInput:
     def __init__(self):
-        self.last_input = 0
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(sensor_pin_1, GPIO.IN)
         GPIO.setup(sensor_pin_2, GPIO.IN)
@@ -32,8 +31,6 @@ class TouchInput:
             current_input = check_current_input()
             if current_input == sensor_pin_1 or current_input == sensor_pin_2 or current_input == sensor_pin_3:
                 print("Touch pin " + str(current_input))
-                if self.last_input != current_input:
-                    callback(param_dict[current_input])
-                    self.last_input = current_input
+                callback(param_dict[current_input])
             # Pause
             time.sleep(sensor_rate)
