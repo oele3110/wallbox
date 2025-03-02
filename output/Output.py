@@ -12,6 +12,13 @@ timer_increment = 0.5
 timer_maximum = 1000
 
 
+def fill_string_with_spaces(display_string, chars):
+    diff = chars - len(display_string)
+    if diff > 0:
+        display_string += diff * " "
+    return display_string
+
+
 class Output:
     def __init__(self):
         self.current_time = 0
@@ -56,6 +63,7 @@ class Output:
                     if modbus_key == "wallbox_status_code":
                         modbus_result = modbus_wallbox_status_codes[modbus_result]
                     display_string = modbus_config["display_string"] + ": " + str(modbus_result) + " " + unit
+                    display_string = fill_string_with_spaces(display_string, 20)
                     self.lcd.lcd_display_string(display_string, modbus_config["display_line"])
                 elif modbus_config["display_line"] == 0:
                     # update leds
