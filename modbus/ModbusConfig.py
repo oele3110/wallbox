@@ -30,8 +30,10 @@ modbus_wallbox_config = {
             "digits_round": 2,
             "update_frequency": 1,
             "display_line": 2,
-            "display_string": "Power",
-            "unit": "W"
+            "display_string": "Leistung",
+            "unit": "kW",
+            "division": 1000000,
+            "division_round": 2
         },
     "current_session_energy":
         {
@@ -41,10 +43,10 @@ modbus_wallbox_config = {
             "digits_round": 2,
             "update_frequency": 1,
             "display_line": 3,
-            "display_string": "Energy",
+            "display_string": "Energie",
             "unit": "kWh",
             "division": 1000000,
-            "division_round": 3
+            "division_round": 2
         },
     "current_session_duration":
         {
@@ -54,7 +56,7 @@ modbus_wallbox_config = {
             "digits_round": 2,
             "update_frequency": 30,
             "display_line": 4,
-            "display_string": "Session",
+            "display_string": "Dauer",
             "unit": "min",
             "division": 60,
             "division_round": 0
