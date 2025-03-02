@@ -20,7 +20,11 @@ class Input:
     def start(self):
         print("Start touch input evaluation")
         touch_input_thread = threading.Thread(target=self.touch_input.check_touch_input, args=(self.param_dict, self.charge_mode_configurator.put_charge_mode))
-        touch_input_thread.start()
+        try:
+            touch_input_thread.start()
+        except KeyboardInterrupt:
+            print("Stop Program")
+            touch_input_thread.join(0)
 
     def read_wallbox_config(self):
         with open('wallboxConfig.json', 'r') as file:

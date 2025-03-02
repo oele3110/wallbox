@@ -44,7 +44,11 @@ class Output:
         print("Start input evaluation timer")
         timer = threading.Timer(timer_increment, self.timer_step)
         timer.daemon = True
-        timer.start()
+        try:
+            timer.start()
+        except KeyboardInterrupt:
+            print("Stop")
+            timer.join(0)
 
     def timer_step(self):
         # increment current_timer by timer_increment
