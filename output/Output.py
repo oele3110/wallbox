@@ -3,8 +3,9 @@ import threading
 
 from pyModbusTCP.client import ModbusClient
 
-from modbus.ModbusConfig import modbus_wallbox_config, modbus_wallbox_status_codes
-from modbus.ModbusReader import read_modbus
+from modbusReader.ModbusConfig import modbus_wallbox_config, modbus_wallbox_status_codes
+from modbusReader.ModbusReader import read_modbus
+
 from output.Led import led_pin_1, led_pin_2, led_pin_3, Led
 from output.drivers.i2c_dev import Lcd
 
