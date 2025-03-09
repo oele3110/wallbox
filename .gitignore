@@ -1,6 +1,6 @@
 .idea
 .idea/*
-wallboxConfig.json
+smartMeterConfig.json
 /OldMain.py
 /OldModbusReader.py
 /OldTouch.py
@@ -19,3 +19,4 @@ output/__pycache__/LedDummy.cpython-310.pyc
 output/__pycache__/Output.cpython-310.pyc
 output/drivers/__pycache__/__init__.cpython-310.pyc
 output/drivers/__pycache__/i2c_dev_dummy.cpython-310.pyc
+/smartMeterConfig.json

@@ -1,10 +1,9 @@
 import json
 import threading
 
-from pyModbusTCP.client import ModbusClient
-
 from modbusReader.ModbusConfig import modbus_wallbox_config, modbus_wallbox_status_codes
 from modbusReader.ModbusReader import read_modbus
+from pyModbusTCP.client import ModbusClient
 
 from output.Led import led_pin_1, led_pin_2, led_pin_3, Led
 from output.drivers.i2c_dev import Lcd
@@ -24,10 +23,10 @@ class Output:
     def __init__(self):
         self.current_time = 0
         self.host = None
-        self.read_wallbox_config()
+        self.read_smartmeter_config()
 
         print("Initialize Modbus Client")
-        self.modbus_client = ModbusClient(host="192.168.178.133", port=502, unit_id=1, auto_open=True)
+        self.modbus_client = ModbusClient(host=self.host, port=502, unit_id=1, auto_open=True)
 
         print("Initialize Display")
         # TODO: use correct lcd class
@@ -81,7 +80,7 @@ class Output:
         self.modbus_client.close()
         # TODO: dispose lcd
 
-    def read_wallbox_config(self):
-        with open('wallboxConfig.json', 'r') as file:
+    def read_smartmeter_config(self):
+        with open('smartMeterConfig.json', 'r') as file:
             data = json.load(file)
         self.host = data.get('host')

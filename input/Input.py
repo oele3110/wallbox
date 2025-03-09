@@ -23,7 +23,7 @@ class Input:
         touch_input_thread.start()
 
     def read_wallbox_config(self):
-        with open('wallboxConfig.json', 'r') as file:
+        with open('smartMeterConfig.json', 'r') as file:
             data = json.load(file)
 
         self.host = data.get('host')
