@@ -1,10 +1,9 @@
 import json
 import threading
 
-from pyModbusTCP.client import ModbusClient
+from modbusReader.ModbusConfig import modbus_wallbox_config, modbus_wallbox_status_codes
+from modbusReader.ModbusReader import ModbusReader
 
-from modbus.ModbusConfig import modbus_wallbox_config, modbus_wallbox_status_codes
-from modbus.ModbusReader import read_modbus
 from output.Led import led_pin_1, led_pin_2, led_pin_3, Led
 from output.drivers.i2c_dev import Lcd
 
@@ -23,13 +22,12 @@ class Output:
     def __init__(self):
         self.current_time = 0
         self.host = None
-        self.read_wallbox_config()
+        self.read_smartmeter_config()
 
-        print("Initialize Modbus Client")
-        self.modbus_client = ModbusClient(host="192.168.178.133", port=502, unit_id=1, auto_open=True)
+        print("Initialize Modbus Reader")
+        self.modbusReader = ModbusReader(self.host)
 
         print("Initialize Display")
-        # TODO: use correct lcd class
         self.lcd = Lcd()
 
         print("Initialize LEDs")
@@ -51,7 +49,7 @@ class Output:
         self.current_time += timer_increment
         for modbus_key, modbus_config in modbus_wallbox_config.items():
             if modbus_config["update_frequency"] % timer_increment == 0:
-                modbus_result = read_modbus(self.modbus_client, modbus_config)
+                modbus_result = self.modbusReader.read_modbus(modbus_config)
                 if modbus_config["display_line"] > 0:
                     if "division" in modbus_config and modbus_config["division"] is not None:
                         modbus_result = modbus_result / modbus_config["division"]
@@ -77,10 +75,10 @@ class Output:
         timer.start()
 
     def stop(self):
-        self.modbus_client.close()
+        self.modbusReader.__shutdown__()
         # TODO: dispose lcd
 
-    def read_wallbox_config(self):
-        with open('wallboxConfig.json', 'r') as file:
+    def read_smartmeter_config(self):
+        with open('smartMeterConfig.json', 'r') as file:
             data = json.load(file)
         self.host = data.get('host')
